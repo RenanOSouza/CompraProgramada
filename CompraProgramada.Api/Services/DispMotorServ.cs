@@ -1,4 +1,5 @@
 namespace CompraProgramada.Api.Services{
+
     public class DispMotorServ : BackgroundService {
         private readonly IServiceProvider serviceProvider;
 
@@ -30,7 +31,7 @@ namespace CompraProgramada.Api.Services{
 
                     }
                 } else {
-                    Console.WriteLine($"[MOTOR DE COMPRA] Hoje ({hoje:dd/MM/yyyy}) não é dia de compra. Voltando a dormir.");
+                    Console.WriteLine($"[MOTOR DE COMPRA] ({hoje:dd/MM/yyyy}) não é dia de compra.");
                 }
 
                 await Task.Delay(TimeSpan.FromHours(24), stoppingToken);

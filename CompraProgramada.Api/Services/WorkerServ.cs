@@ -7,7 +7,7 @@ namespace CompraProgramada.Api.Services
             int ano = dataAtual.Year;
             int mes = dataAtual.Month;
 
-            var dataExecucao1 = AjustarParaDiaUtil(new DateTime(ano, mes, 3));
+            var dataExecucao1 = AjustarParaDiaUtil(new DateTime(ano, mes, 5));
             var dataExecucao2 = AjustarParaDiaUtil(new DateTime(ano, mes, 15));
             var dataExecucao3 = AjustarParaDiaUtil(new DateTime(ano, mes, 25));
 

@@ -131,3 +131,4 @@ C:\Users\renan\Desktop\Softwares\projetos\testeItau_CompraProgramada\CompraProgr
 C:\Users\renan\Desktop\Softwares\projetos\testeItau_CompraProgramada\CompraProgramada.Api\bin\Debug\net10.0\runtimes\win-x86\native\vcruntime140.dll
 C:\Users\renan\Desktop\Softwares\projetos\testeItau_CompraProgramada\CompraProgramada.Api\bin\Debug\net10.0\runtimes\win-x86\native\zlib1.dll
 C:\Users\renan\Desktop\Softwares\projetos\testeItau_CompraProgramada\CompraProgramada.Api\bin\Debug\net10.0\runtimes\win-x86\native\zstd.dll
+C:\Users\renan\Desktop\Softwares\projetos\testeItau_CompraProgramada\CompraProgramada.Api\obj\Debug\net10.0\CompraProgramada.Api.sourcelink.json
