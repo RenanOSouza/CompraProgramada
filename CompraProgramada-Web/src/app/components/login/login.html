@@ -1,0 +1,28 @@
+<div class="auth-container">
+  <div class="auth-box">
+    <h2>Compra Programada</h2>
+    <p class="subtitle">Acesse sua conta</p>
+
+    <div class="alert error" *ngIf="mensagemErro">{{ mensagemErro }}</div>
+
+    <form (ngSubmit)="fazerLogin()">
+      <div class="input-group">
+        <label>E-mail</label>
+        <input type="email" name="email" [(ngModel)]="credenciais.email" required placeholder="Digite seu e-mail">
+      </div>
+
+      <div class="input-group">
+        <label>Senha (Seu CPF)</label>
+        <input type="password" name="senha" [(ngModel)]="credenciais.senha" required placeholder="Apenas números">
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="carregando">
+        {{ carregando ? 'Acessando...' : 'Entrar' }}
+      </button>
+    </form>
+
+    <p class="rodape">
+      Não tem conta? <a routerLink="/cadastro">Cadastre-se aqui</a>
+    </p>
+  </div>
+</div>

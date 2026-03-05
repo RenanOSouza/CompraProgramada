@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CompraProgramada.Api/CompraProgramada.Api.csproj" />
+  <Project Path="CompraProgramada.Tests/CompraProgramada.Tests.csproj" />
+</Solution>

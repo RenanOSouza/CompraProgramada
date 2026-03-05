@@ -1,0 +1,135 @@
+<div class="container-carteira" *ngIf="resumo; else carregando">
+  <header>
+    
+    <div class="header-topo">
+    <h2>Olá, {{ nome }}!</h2>
+    <div class="acoes-topo">
+      <button class="btn-padrao" (click)="sair()">Sair / Trocar Conta</button>
+      
+      <button *ngIf="clienteAtivo" class="btn-perigo" (click)="encerrarAdesao()">
+        Encerrar Adesão
+      </button>
+      
+      <span *ngIf="!clienteAtivo" class="badge-encerrado">
+        ⚠️ Adesão Encerrada
+      </span>
+    </div>
+  </div>
+    <span class="data">Última atualização: {{ dataConsulta | date:'dd/MM/yyyy HH:mm' }}</span>
+  </header>
+
+  <div class="grid-resumo">
+    <div class="card card-patrimonio">
+      <small>Patrimônio Total</small>
+      <p class="valor">{{ resumo.valorAtualCarteira | currency:'BRL' }}</p>
+    </div>
+    
+    <div class="card" [ngClass]="{'lucro': resumo.plTotal >= 0, 'prejuizo': resumo.plTotal < 0}">
+      <small>Lucro/Prejuízo Total (P/L)</small>
+      <p class="valor">{{ resumo.plTotal | currency:'BRL' }}</p>
+      <span class="percentual">{{ resumo.rentabilidadePercentual }}% de rentabilidade</span>
+    </div>
+
+    <div class="card card-aporte">
+      <small style="color: #ec7000; font-weight: bold;">Alterar Aporte Mensal</small>
+      
+      <div class="aporte-form">
+        <input type="number" [(ngModel)]="novoAporte" (ngModelChange)="limparAporteMsg()" placeholder="R$ 0,00" *ngIf="clienteAtivo" min="100">
+        <button (click)="atualizarAporte()" [disabled]="carregandoAporte">
+          {{ carregandoAporte ? '...' : 'Salvar' }}
+        </button>
+      </div>
+
+      <div class="alert error" *ngIf="mensagemAporte && !sucessoAporte">{{ mensagemAporte }}</div>
+      <div class="alert success" *ngIf="mensagemAporte && sucessoAporte">{{ mensagemAporte }}</div>
+    </div>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="chart-container">
+      <h3>Composição da Carteira</h3>
+      <div class="canvas-wrapper">
+        <canvas baseChart 
+          [data]="doughnutChartData" 
+          [type]="doughnutChartType">
+        </canvas>
+      </div>
+    </div>
+
+    <div class="tabela-container">
+
+          <h3>Meus Ativos</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Ativo</th>
+                <th>Qtd</th>
+                <th>Preço Médio</th>
+                <th>Valor Total (Aplicado)</th>
+                <th>Cotação Atual</th>
+                <th>P/L Ativo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ativo of ativos">
+                
+                <td><strong>{{ ativo.ticker}}</strong></td>
+                <td>{{ ativo.quantidade}}</td>
+                <td>{{ (ativo.precoMedio) | currency:'BRL' }}</td>
+                
+                <td style="color: #ec7000; font-weight: bold;">
+                  {{ ( (ativo.quantidade) * 1 ) * ( (ativo.precoMedio) * 1 ) | currency:'BRL' }}
+                </td>
+                
+                <td>{{ (ativo.cotacaoAtual ) | currency:'BRL' }}</td>
+                <td [ngClass]="{'texto-lucro': (ativo.plValor) >= 0, 'texto-prejuizo': (ativo.plValor) < 0}">
+                  {{ (ativo.plValor ) | currency:'BRL' }} ({{ ativo.plPercentual}}%)
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+</div>
+
+<ng-template #carregando>
+  <div class="loading-screen" style="display: flex; justify-content: center; align-items: center; height: 100vh; color: #0047bb;">
+    <h2>Conectando à corretora... Aguarde.</h2>
+  </div>
+</ng-template>
+<div class="tabela-container" style="margin-top: 30px; width: 100%;">
+      <h3>Histórico de Vendas (Rebalanceamento Automático)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Ativo</th>
+            <th>Qtd Vendida</th>
+            <th>Preço de Venda</th>
+            <th>Valor Financeiro</th>
+            <th>Lucro / Prejuízo Apurado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let venda of historicoVendas">
+            <td>{{ venda.data | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td><strong>{{ venda.ticker }}</strong></td>
+            <td>{{ venda.quantidade }}</td>
+            <td>{{ venda.precoVenda | currency:'BRL' }}</td>
+            <td>{{ venda.valorTotal | currency:'BRL' }}</td>
+            
+            <td [ngClass]="{'texto-lucro': venda.lucro > 0, 'texto-prejuizo': venda.lucro < 0}">
+              {{ venda.lucro > 0 ? '+' : '' }}{{ venda.lucro | currency:'BRL' }}
+            </td>
+          </tr>
+          
+          <tr *ngIf="historicoVendas.length === 0">
+            <td colspan="6" style="text-align: center; padding: 30px; color: #888; font-style: italic;">
+              O motor ainda não realizou nenhuma venda na sua carteira.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    

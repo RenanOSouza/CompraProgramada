@@ -1,0 +1,39 @@
+<div class="auth-container">
+  <div class="auth-box">
+    <h2>Abra sua Conta Itaú BBA</h2>
+    <p class="subtitle">Compra Programada de Ações</p>
+
+    <div class="alert error" *ngIf="mensagemErro">{{ mensagemErro }}</div>
+
+    <form (ngSubmit)="fazerCadastro()">
+      <div class="input-group">
+        <label>Nome Completo</label>
+        <input type="text" name="nome" [(ngModel)]="novoUsuario.nome" required placeholder="Ex: João da Silva">
+      </div>
+
+      <div class="input-group">
+        <label>E-mail</label>
+        <input type="email" name="email" [(ngModel)]="novoUsuario.email" required placeholder="Ex: joao@email.com">
+      </div>
+
+      <div class="input-group">
+        <label>CPF (Sem pontuação)</label>
+        <input type="text" name="cpf" [(ngModel)]="novoUsuario.cpf" required placeholder="Apenas números">
+        <small class="dica">O seu CPF será a sua senha inicial de acesso.</small>
+      </div>
+
+      <div class="input-group">
+        <label>Aporte Mensal (Mínimo R$ 100,00)</label>
+        <input type="number" name="valorMensal" [(ngModel)]="novoUsuario.valorMensal" required placeholder="Ex: 500">
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="carregando">
+        {{ carregando ? 'Processando Adesão...' : 'Criar Minha Conta' }}
+      </button>
+    </form>
+
+    <p class="rodape">
+      Já é cliente? <a routerLink="/login">Faça seu Login aqui</a>
+    </p>
+  </div>
+</div>
