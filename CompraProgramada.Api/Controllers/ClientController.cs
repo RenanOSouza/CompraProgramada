@@ -19,13 +19,7 @@ namespace CompraProgramada.Api.Controllers {
             parser = parserInfo;
         }
 
-        public class RequestAderir {
-            required public string Nome { get; set; }
-            required public string Cpf { get; set; }
-            required public string Email { get; set; }
-
-            public decimal ValorMensal { get; set; }
-        }
+        
 
         [HttpPost("{clienteId}/saida")]
         public async Task<IActionResult> SairDoProduto(long clienteId) {

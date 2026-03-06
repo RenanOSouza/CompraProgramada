@@ -1,6 +1,5 @@
 using CompraProgramada.Api.Data;
 using CompraProgramada.Api.Models;
-using CompraProgramada.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompraProgramada.Api.Services { 
@@ -128,8 +127,6 @@ namespace CompraProgramada.Api.Services {
             decimal volumeTotalMes = vendasPassadasNesteMes + volumeVendidoNesteRebalanceamento;
             decimal impostoDevido = 0;
             
-            lucroTotalNesteRebalanceamento = 5000m; //*************************************************************************w
-
             if (volumeTotalMes > 20000m && lucroTotalNesteRebalanceamento > 0)
             {
                 impostoDevido = lucroTotalNesteRebalanceamento * 0.20m;

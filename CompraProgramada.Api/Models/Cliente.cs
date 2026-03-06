@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace CompraProgramada.Api.Models {
     public class Cliente {
         public long Id { get; set; }
-        required public string Nome { get; set; }
+        required public string Nome { get; set; } 
         required public string Cpf { get; set; }
         required public string Email { get; set; }
         public decimal ValorMensal { get; set; }
